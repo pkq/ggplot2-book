@@ -543,6 +543,11 @@ With longitudinal data, you often want to display multiple time series on each p
     `ggplot(mpg, aes(cty, hwy)) + geom_point()`? Which of the geoms 
     described above is most effective at remedying the problem?
 
+```{r}
+# overplotting. geom_jitter()
+ggplot(mpg, aes(cty, hwy)) + geom_jitter()
+```
+
 1.  One challenge with `ggplot(mpg, aes(class, hwy)) + geom_boxplot()`
     is that the ordering of `class` is alphabetical, which is not terribly 
     useful. How could you change the factor levels to be more informative? 
@@ -552,24 +557,64 @@ With longitudinal data, you often want to display multiple time series on each p
     `ggplot(mpg, aes(reorder(class, hwy), hwy)) + geom_boxplot()`.
     What does `reorder()` do? Read the documentation.
 
+```{r}
+# reorders a categorical variable by the values of a second variable
+```
+
 1.  Explore the distribution of the carat variable in the `diamonds`
     dataset. What binwidth reveals the most interesting patterns?
     
+```{r}
+ggplot(diamonds, aes(carat)) + geom_freqpoly(binwidth = 1)
+ggplot(diamonds, aes(carat)) + geom_freqpoly(binwidth = 0.5)
+ggplot(diamonds, aes(carat)) + geom_freqpoly(binwidth = 0.1)
+# smaller values, e.g., 0.1
+```
+
 1.  Explore the distribution of the price variable in the `diamonds`
     data. How does the distribution vary by cut?
+
+```{r}
+ggplot(diamonds, aes(price, color = cut)) + geom_freqpoly(binwidth = 50)
+# most diamonds are less that $2500, highest freq are ideal, decreasing by cut
+```
 
 1.  You now know (at least) three ways to compare the distributions of 
     subgroups: `geom_violin()`, `geom_freqpoly()` and the colour aesthetic,
     or `geom_histogram()` and facetting. What are the strengths and weaknesses 
     of each approach? What other approaches could you try?
 
+```{r}
+ggplot(mpg, aes(drv, displ)) + geom_violin()
+ggplot(mpg, aes(displ, colour = drv)) + 
+  geom_freqpoly(binwidth = 0.5)
+ggplot(mpg, aes(displ, fill = drv)) + 
+  geom_histogram(binwidth = 0.5) + 
+  facet_wrap(~drv, ncol = 1)
+```
+
 1.  Read the documentation for `geom_bar()`. What does the `weight` 
     aesthetic do? 
+
+```{r}
+?geom_bar
+ggplot(mpg, aes(class)) + geom_bar()
+ggplot(mpg, aes(class)) + geom_bar() + geom_bar(aes(weight = displ))
+# scales bar by values of a second variable
+```
 
 1.  Using the techniques already discussed in this chapter, come up with
     three ways to visualise a 2d categorical distribution. Try them out 
     by visualising the distribution of `model` and `manufacturer`, `trans` and 
     `class`, and `cyl` and `trans`.
+
+```{r}
+ggplot(mpg, aes(trans, class)) + geom_jitter()
+ggplot(mpg, aes(trans)) + geom_bar() + facet_wrap(~class)
+
+ggplot(mpg, aes(cyl, trans)) + geom_jitter()
+ggplot(mpg, aes(cyl)) + geom_bar() + facet_wrap(~trans)
+```
 
 ## Modifying the axes {#sec:axes}
 
