@@ -64,17 +64,58 @@ This dataset suggests many interesting questions. How are engine size and fuel e
 1.  List five functions that you could use to get more information about the
     `mpg` dataset.
     
+```{r}
+names(mpg)
+labels(mpg)
+head(mpg)
+summary(mpg)
+```
+    
 1.  How can you find out what other datasets are included with ggplot2?
+
+```{r}
+data(package = "ggplot2")
+```
+
     
 1.  Apart from the US, most countries use fuel consumption (fuel consumed
     over fixed distance) rather than fuel economy (distance travelled with
     fixed amount of fuel). How could you convert `cty` and `hwy` into the
     European standard of l/100km? 
     
+```{r}
+mpg %>% 
+  mutate_each(funs(consump = (100 / ((. * 1.60934)/3.78541))), cty, hwy)
+```
+
 1.  Which manufacturer has the most the models in this dataset? Which model has 
     the most variations? Does your answer change if you remove the redundant
     specification of drive train (e.g. "pathfinder 4wd", "a4 quattro") from the 
     model name?
+
+```{r}
+mpg_make <- mpg %>% 
+  group_by(manufacturer, model) %>% 
+  summarise(n = n()) %>% 
+  summarise(n = n()) %>% 
+  arrange(desc(n))
+
+(mpg_model <- mpg %>% 
+  group_by(manufacturer, model, trans, drv) %>% 
+  summarise(n = n()) %>% 
+  summarise(n = n()) %>% 
+  summarise(n = n()) %>% 
+  arrange(desc(n)))
+
+(mpg_model2 <- mpg %>% 
+  separate(col = model, into = c("model", "v2", "v3", "v4")) %>% 
+  group_by(manufacturer, model, trans, drv) %>% 
+  summarise(n = n()) %>% 
+  summarise(n = n()) %>% 
+  summarise(n = n()) %>% 
+  arrange(desc(n)))
+
+```
 
 ## Key components {#sec:basic-use}
 
