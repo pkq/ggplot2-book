@@ -114,7 +114,7 @@ mpg_make <- mpg %>%
   summarise(n = n()) %>% 
   summarise(n = n()) %>% 
   arrange(desc(n)))
-
+# Yes.
 ```
 
 ## Key components {#sec:basic-use}
@@ -160,19 +160,43 @@ The plot shows a strong correlation: as the engine size gets bigger, the fuel ec
 
 1.  How would you describe the relationship between `cty` and `hwy`?
     Do you have any concerns about drawing conclusions from that plot?
-  
+
+```{r, eval = FALSE}
+ggplot(mpg, aes(cty, hwy)) +
+  geom_point()
+# strongly positively linear
+```
+
 1.  What does `ggplot(mpg, aes(model, manufacturer)) + geom_point()` show?
     Is it useful? How could you modify the data to make it more informative?
   
+```{r, eval = FALSE}
+ggplot(mpg, aes(model, manufacturer)) +
+  geom_point()
+# Which models belong to which manufacturer. Not really useful. Color code?
+```
+
 1.  Describe the data, aesthetic mappings and layers used for each of the 
     following plots. You'll need to guess a little because you haven't seen
     all the datasets and functions yet, but use your common sense! See if you 
     can predict what the plot will look like before running the code.
     
-    1. `ggplot(mpg, aes(cty, hwy)) + geom_point()`
+    1. `ggplot(mpg, aes(cty, hwy)) + geom_point()` 
+```{r, eval = FALSE}
+# mpg dataset, city & highway mileage mapped to x & y, scatter plot.
+```
     1. `ggplot(diamonds, aes(carat, price)) + geom_point()`
+```{r, eval = FALSE}
+# diamonds dataset, carat & price mapped to x & y, scatter plot.
+```
     1. `ggplot(economics, aes(date, unemploy)) + geom_line()`
+```{r, eval = FALSE}
+# economics dataset, date an unemployment mapped to x & y, trend of unemployment over time.
+```
     1. `ggplot(mpg, aes(cty)) + geom_histogram()`
+```{r, eval = FALSE}
+# mpg dataset, city mileage mapped to x, histogram (count) oif mileage groups.
+```
 
 ## Colour, size, shape and other aesthetic attributes {#aesthetics}
 
