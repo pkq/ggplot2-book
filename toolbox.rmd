@@ -1029,13 +1029,50 @@ The histogram, frequency polygon and density display a detailed view of the dist
 1.  What binwidth tells you the most interesting story about the distribution
     of `carat`?
     
+    ```{r}
+    ggplot(diamonds, aes(carat)) +
+      geom_histogram(binwidth = 0.1) +
+      xlim(0, 2.5)
+    ```
+
 1.  Draw a histogram of `price`. What interesting patterns do you see?
 
+    ```{r}
+    ggplot(diamonds, aes(price)) +
+      geom_histogram(binwidth = 50) +
+      xlim(0, 10000)
+    # most cost between $500 & 1000
+    # odd gap at $1500
+    ```
+
 1.  How does the distribution of `price` vary with `clarity`?
+
+    ```{r}
+    ggplot(diamonds, aes(price)) +
+      geom_histogram(binwidth = 50) +
+      xlim(0, 10000) +
+      facet_wrap(~clarity)
+
+    ggplot(diamonds, aes(price)) +
+      geom_freqpoly(aes(colour = clarity), binwidth = 100, na.rm = TRUE)
+    
+    ggplot(diamonds, aes(price)) +
+      geom_histogram(aes(fill = clarity), binwidth = 100, position = "fill", na.rm = TRUE)
+    
+    ggplot(diamonds, aes(price, fill = clarity, color = clarity)) +
+      geom_density(alpha = 0.2, na.rm = TRUE)
+    ```
 
 1.  Overlay a frequency polygon and density plot of `depth`. What computed
     variable do you need to map to `y` to make the two plots comparable? 
     (You can either modify `geom_freqpoly()` or `geom_density()`.)
+
+    ```{r}
+    ggplot(diamonds, aes(depth)) +
+      geom_freqpoly(aes(binwidth = 1, na.rm = TRUE)) +
+      geom_density(aes(y = ..count.., na.rm = TRUE))
+    # requires calculated 'count'..' (density * n)
+    ```
 
 ## Dealing with overplotting {#sec:overplotting}
 
