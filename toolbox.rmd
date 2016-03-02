@@ -151,17 +151,17 @@ p + geom_polygon() + ggtitle("polygon")
 
 1.  What geoms would you use to draw each of the following named plots?
     
-    1. Scatterplot
-    1. Line chart
-    1. Histogram
-    1. Bar chart
-    1. Pie chart
+    1. Scatterplot: [//]: (geom_pont())
+    1. Line chart:  [//]: (geom_line())
+    1. Histogram:   [//]: (geom_hist())
+    1. Bar chart:   [//]: (geom_bar())
+    1. Pie chart:   [//]: (geom_bar())
 
-1.  What's the difference between `geom_path()` and `geom_polygon()`?
-    What's the difference between `geom_path()` and `geom_line()`?
+1.  What's the difference between `geom_path()` and `geom_polygon()`?  [//]: (polygon is a filled path)
+    What's the difference between `geom_path()` and `geom_line()`?  [//]: (the order in which points are connected)
 
-1.  What low-level geoms are used to draw `geom_smooth()`? 
-    What about `geom_boxplot()` and `geom_violin()`? 
+1.  What low-level geoms are used to draw `geom_smooth()`?   [//]: (geom_line())
+    What about `geom_boxplot()` and `geom_violin()`?  [//]: (geom_rect(), geom_poly())
 
 ## Labels {#sec:labelling}
 \index{Labels} \index{Text} \indexf{geom\_text}
